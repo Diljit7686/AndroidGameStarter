@@ -36,9 +36,17 @@ public class GameEngine extends SurfaceView implements Runnable {
 
 
     Bitmap ememyImage;
+
+    Bitmap DinoImage;
     int enemyXPosition;
     int enemyYPosition;
+
+    int dinoXPos;
+    int dinoYPos;
+
     Rect enemyHitbox;
+
+    Rect dinoHitBox;
 
     // game state
     boolean gameIsRunning;
@@ -94,8 +102,14 @@ public class GameEngine extends SurfaceView implements Runnable {
                 R.drawable.rainbow32);
 
 
+        this.DinoImage = BitmapFactory.decodeResource(this.getContext().getResources(),
+                R.drawable.dino32);
+
+
         this.enemyXPosition = 1300;
         this.enemyYPosition = 120;
+        this.dinoXPos = 1200;
+        this.dinoYPos = 220;
         // 1. create the hitbox
         this.enemyHitbox = new Rect(1300,
                 120,
@@ -103,6 +117,11 @@ public class GameEngine extends SurfaceView implements Runnable {
                 120+ememyImage.getHeight()
         );
 
+        this.dinoHitBox = new Rect(1200,
+                220,
+                1200+DinoImage.getWidth(),
+                220+DinoImage.getHeight()
+        );
         // @TODO: Add your sprites to this section
         // This is optional. Use it to:
         //  - setup or configure your sprites
@@ -331,7 +350,7 @@ public class GameEngine extends SurfaceView implements Runnable {
            // Bitmap bitmap = BitmapFactory.decodeResource(getContext().getResources(),R.drawable.dino32);
          //   canvas.drawBitmap(bitmap, null, mRedPaddleRect, mPaint);
 
-this.canvas.drawLine(20,30,50,50,paintbrush);
+//this.canvas.drawLine(20,30,50,50,paintbrush);
 
             // draw player
 
@@ -340,7 +359,7 @@ this.canvas.drawLine(20,30,50,50,paintbrush);
             // MAKE ENEMY MOVE
             // - enemy moves left forever
             // - when enemy touches LEFT wall, respawn on RIGHT SIDE
-            this.enemyXPosition = this.enemyXPosition - 25;
+            this.enemyXPosition = this.enemyXPosition + 25;
 
             // MOVE THE HITBOX (recalcluate the position of the hitbox)
             this.enemyHitbox.left  = this.enemyXPosition;
@@ -348,9 +367,9 @@ this.canvas.drawLine(20,30,50,50,paintbrush);
             this.enemyHitbox.right  = this.enemyXPosition + this.ememyImage.getWidth();
             this.enemyHitbox.bottom = this.enemyYPosition + this.ememyImage.getHeight();
 
-            if (this.enemyXPosition <= 0) {
+            if (this.enemyXPosition >= screenWidth) {
                 // restart the enemy in the starting position
-                this.enemyXPosition = 1300;
+                this.enemyXPosition = 00;
                 this.enemyYPosition = 120;
 
                 // restart the hitbox in the starting position
@@ -391,9 +410,10 @@ this.canvas.drawLine(20,30,50,50,paintbrush);
             paintbrush.setTextSize(60);
             canvas.drawText("Score: " + this.score, 20, 100, paintbrush);
             canvas.drawText("Lives: " + this.score, 40, 200, paintbrush);
+
             canvas.drawBitmap(ememyImage, enemyXPosition, enemyYPosition, paintbrush);
             // 2. draw the enemy's hitbox
-
+            canvas.drawBitmap(DinoImage, 1600, 500, paintbrush);
             //----------------
             this.holder.unlockCanvasAndPost(canvas);
         }
