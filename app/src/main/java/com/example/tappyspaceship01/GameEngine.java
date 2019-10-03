@@ -91,7 +91,7 @@ public class GameEngine extends SurfaceView implements Runnable {
 
 
         this.ememyImage = BitmapFactory.decodeResource(this.getContext().getResources(),
-                R.drawable.dino32);
+                R.drawable.rainbow32);
 
 
         this.enemyXPosition = 1300;
@@ -391,6 +391,8 @@ this.canvas.drawLine(20,30,50,50,paintbrush);
             paintbrush.setTextSize(60);
             canvas.drawText("Score: " + this.score, 20, 100, paintbrush);
             canvas.drawText("Lives: " + this.score, 40, 200, paintbrush);
+            canvas.drawBitmap(ememyImage, enemyXPosition, enemyYPosition, paintbrush);
+            // 2. draw the enemy's hitbox
 
             //----------------
             this.holder.unlockCanvasAndPost(canvas);
